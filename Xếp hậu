@@ -1,0 +1,38 @@
+ #include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll nmax=10e5+5;
+ll n,a[nmax],cot[nmax],chinh[nmax],phu[nmax];
+void in()
+{
+	for(int i=1;i<=n;i++)cout<<a[i]<<" ";
+	cout<<endl;
+}
+void back(ll i)
+{
+	for(int j=1;j<=n;j++)
+      if(cot[j]==0 && chinh[i-j]==0 && phu[i+j]==0)
+	{
+		a[i]=j;
+		cot[j]=1;
+		chinh[i-j]=1;
+		phu[i+j]=1;
+		if(i==n)in();
+		else back(i+1);
+			cot[j]=0;
+		chinh[i-j]=0;
+		phu[i+j]=0;
+	}
+}	int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+  freopen("TEST.INP","r",stdin);
+  freopen("TEST.OUT","w",stdout);
+    cin>>n;
+    memset(cot,0,nmax);
+    memset(chinh,0,nmax);
+    memset(phu,0,nmax);
+    back(1);
+    
+    return 0;
+}
