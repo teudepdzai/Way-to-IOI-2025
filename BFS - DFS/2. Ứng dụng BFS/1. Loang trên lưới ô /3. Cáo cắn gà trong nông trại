@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=100005;
+const int dx[4]={0,1,0,-1};
+const int dy[4]={-1,0,1,0};
+char b[300][300];
+bool mark[300][300],a[300][300];
+int n,m,d=0,c,f,sc,sf;
+map <int,int> mp;
+queue <pair<int,int>> q;
+
+void bfs(int i, int j)
+{
+	c=0;f=0;
+	q.push({i,j});
+	mark[i][j]=1;
+	while(!q.empty())
+    {
+    	i=q.front().first;j=q.front().second;
+    	q.pop();
+    	mark[i][j]=1;
+    	    	  if(b[i][j]=='c')++c;
+    	  if(b[i][j]=='f')++f;
+    	for(int k=0;k<4;k++)
+    	  if(i+dx[k]<=n && j+dy[k]<=m && i+dx[k]>0 && j+dy[k]>0 && a[i+dx[k]][j+dy[k]]==1 && mark[i+dx[k]][j+dy[k]]==0)
+    	  {
+		  q.push({i+dx[k],j+dy[k]});
+		  mark[i+dx[k]][j+dy[k]]=1;
+
+    	  
+        }
+	}
+	if(c>f)sf-=f;
+	else sc-=c;
+}
+
+void solve()
+{
+	mp.clear();
+	memset(mark,0,300*300);
+	for(int i=1;i<=n;i++)
+	   for(int j=1;j<=m;j++)
+	     if(a[i][j]==1 && mark[i][j]==0)bfs(i,j);
+	
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    cin>>n>>m;
+    
+    	sc=0;sf=0;
+        for(int i=1;i<=n;i++)
+		  for(int j=1;j<=m;j++)
+		  {
+		      cin>>b[i][j];
+	          if(b[i][j]=='#')a[i][j]=0;
+	          else 
+			  {
+			  a[i][j]=1;
+			  if(b[i][j]=='c')++sc;
+			  if(b[i][j]=='f')++sf;
+		      }
+		  }
+
+		solve();	
+		cout<<sf<<" "<<sc<<'\n';
+	
+    return 0;
+}
