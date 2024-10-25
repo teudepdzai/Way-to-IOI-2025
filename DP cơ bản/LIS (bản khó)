@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+const ll mod= 1e9 + 7;
+long long n,a[nmax],b[nmax]={},maxt=-1e18,j;
+
+int tknp(ll x, ll maxt)
+{
+	ll l=1,r=maxt,m,ans=0;
+	while(l<=r)
+	{
+		m=(l+r)/2;
+		if(x>b[m])
+		{
+			ans=m;
+			l=m+1;
+		}
+		else r=m-1;
+	}
+	return ans;
+}
+
+int main() {
+    cin>>n;
+    for(int i=1;i<=n;i++)	cin>>a[i];
+    
+    for(int i=1;i<=n;i++)
+	{
+	j=tknp(a[i],maxt);
+	b[j+1]=a[i];
+	maxt=max(maxt,j+1);
+    }
+    cout<<maxt;
+	   return 0;   
+ }
+//https://oj.vnoi.info/problem/lis
