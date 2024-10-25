@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef unsigned long long ll;
+const ll nmax=100;
+int n,c[nmax][nmax],f[1<<20][20],a[nmax],ans=0;
+bool mark[nmax];
+
+bool get_bit(ll a, int i)
+{
+	return (a&(1ULL<<i));
+}
+
+long long off_bit(ll a, int i)
+{
+	return (a -(1ULL<<i));
+}
+
+void qhd()
+{
+	//for(int i=0;i<n;i++)f[1<<i][i]=0;
+	
+	for(int mask=1;mask<(1<<n);mask++)
+	{
+	  if(__builtin_popcount(mask)==1)continue;
+       else
+       {
+	  for(int i=0;i<n;i++)
+	  if(get_bit(mask,i)==1)
+	  {
+	  	f[mask][i]=1e9;
+	  	int mask2=off_bit(mask,i);
+	  for(int j=0;j<n;j++)
+        if(get_bit(mask2,j)==1) f[mask][i]=min(f[mask][i],f[mask2][j]+c[j][i]);
+	    
+      }
+      }
+   }
+}
+
+//110010
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    ans=1e9 + 7;
+    cin>>n;
+    for(int i=0;i<n;i++)
+	   for(int j=0;j<n;j++)cin>>c[i][j];
+	qhd();
+	
+	for(int i=0;i<n;i++)ans=min(ans,f[(1<<n)-1][i]);
+	cout<<ans;
+    return 0;
+}
