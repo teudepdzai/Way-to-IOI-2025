@@ -1,0 +1,67 @@
+// bitmask để sinh subset 
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+ll n,k,r,m;
+bool danhdau[10000];
+struct toado{
+	int x;
+	int y;
+};
+
+struct td{
+	int x;
+	int y;
+	int ng;
+};
+
+toado pizza[30];
+td home[200];
+
+bool get_bit(unsigned long long a, ll i)
+{
+	return (a & (1ULL<<i));
+}
+
+
+void mark(toado cuahang)
+{
+	 int x=cuahang.x;
+	 int y=cuahang.y;
+	 
+	 for(int i=1;i<=n;i++)
+	    if((home[i].x-x)*(home[i].x-x) + (home[i].y-y)*(home[i].y-y) <= r*r) danhdau[i]=1;;
+}
+
+ll solve()
+{
+	ll tong=0,ans=0;
+	for(int mask=1;mask<(1<<m);++mask)
+	  if(__builtin_popcount(mask)==k)
+	  {
+	  	memset(danhdau,0,1000);
+	  	tong=0;
+	  	for(int j=0;j<m;j++)
+	  	   if(get_bit(mask,j)==1)mark(pizza[j+1]);
+	  	   
+	  	for(int i=1;i<=n;i++)
+	  	   if(danhdau[i]==1)tong+=home[i].ng;
+	  	   ans=max(ans,tong);
+			 	  }
+	  return ans;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    //freopen("TEST.INP","r",stdin);
+    //freopen("TEST.OUT","w",stdout);
+    cin>>k>>r>>m;
+    for(int i=1;i<=m;i++)cin>>pizza[i].x>>pizza[i].y;
+    cin>>n;
+    for(int i=1;i<=n;i++)cin>>home[i].x>>home[i].y>>home[i].ng;
+    cout<<solve();
+    return 0;
+}
