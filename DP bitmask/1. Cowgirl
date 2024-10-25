@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef unsigned long long ll;
+const ll nmax=10e5+5;
+ll t,m,n;
+ll f[40][10000];
+
+bool gbit(unsigned long long a, ll i)
+{
+	return (a & (1ULL<<i));
+}
+
+bool check(ll p, ll q)
+{
+	bool a,b,c,d;
+	for(int i=1;i< n ;++i)
+	{
+		b=gbit(p,i-1);d=gbit(q,i-1);
+		a=gbit(p,i);c=gbit(q,i);
+		if(a==b && b==c && c==d)return 0;
+	}
+	return 1;
+	
+}
+
+void qhd()
+{
+	for(int i=0;i<(1<<n);++i) f[1][i]=1;
+	
+	for(int i=2;i<=m;i++)
+	{
+	  for(int j=0;j<(1<<n);++j)
+	{
+	  f[i][j]=0;
+	 for(int k=0;k<(1<<n);++k)
+	   if(check(k,j)==1)f[i][j]+=f[i-1][k];
+     }
+   }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    cin>>t;
+    while(t--)
+    {
+    	int ans=0;
+    	cin>>m>>n;
+    	if(m<n) swap(m,n);
+    	qhd();
+    	for(int i=0;i<(1<<n);++i)ans+=f[m][i];
+    	cout<<ans<<"\n";
+	}
+    return 0;
+}
