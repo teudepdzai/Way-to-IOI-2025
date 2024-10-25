@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+#define inf 1e9
+
+int n,ma,b[10][10005],a[10005][10],dp[16][10005];
+bool am;
+bool bit(int n, int i)
+{
+	return (n &(1<<i))!=0;
+}
+
+int tinh(int mask, int k)
+{
+	int d=0;
+	for(int i=0;i<4;i++) 
+	   if(bit(mask,i)==1)d+=a[k][4-i];
+	return d;
+}
+
+bool kt1(int mask)
+{
+	for(int i=1;i<4;i++)
+	  if(bit(mask,i)==1 &&bit(mask,i-1)==1)return 0;
+	  return 1;
+}
+
+bool kt2(int mask1, int mask2)
+{
+	for(int i=0;i<4;++i)
+	   if(bit(mask1,i)==1 && bit(mask2,i)==1)return 0;
+	   return 1;
+}
+
+void qhd()
+{
+	for(int mask=0;mask<16;++mask)
+		if(kt1(mask)==1)dp[mask][1]=tinh(mask,1);
+	
+ 	for(int i=2;i<=n;i++)
+	for(int mask1=0;mask1<16;++mask1)
+	if(kt1(mask1)==1)//cout<<bitset<4>(mask1)<<endl;
+	{
+		dp[mask1][i]=-inf;
+		for(int mask2=0;mask2<16;++mask2)
+		   if(kt1(mask2)==1 && kt2(mask1,mask2)==1)dp[mask1][i]=max(dp[mask1][i],dp[mask2][i-1]+tinh(mask1,i));
+	}
+	
+
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    ma=-inf;
+    am=true;
+    cin>>n;
+    for(int i=1;i<=4;i++)
+      for(int j=1;j<=n;j++)
+	  {
+	  	
+	  cin>>b[i][j];
+      ma=max(ma,b[i][j]);
+      if(b[i][j]>0)am=false;
+	  }
+    for(int i=1;i<=4;i++)
+      for(int j=1;j<=n;j++)  a[j][i]=b[i][j];
+      
+      
+    qhd();     
+      
+     int ans=-inf; 
+    for(int i=0;i<16;++i)ans=max(ans,dp[i][n]);
+	  if(am)cout<<ma;
+	  else cout<<ans;
+    return 0;
+}
