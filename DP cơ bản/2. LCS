@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+const ll mod= 1e9 + 7;
+int dp[3005][3005];
+string s,t,x="";
+
+void qhd()
+{
+	for(int i=1;i<=s.length();i++)dp[0][i]=0;
+	for(int i=1;i<=t.length();i++)dp[i][0]=0;
+	
+	for(int i=1;i<=s.length();i++)
+       for(int j=1;j<=t.length();j++)
+          if(s[i-1]==t[j-1])dp[i][j]=dp[i-1][j-1]+1;
+          else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+}
+
+void trace()
+{
+	int i=s.length(),j=t.length();
+	
+	while(i>0 && j>0)
+	if(s[i-1]==t[j-1])
+	{
+		x=x+s[i-1];
+		i--;j--;
+	}
+	else if(dp[i-1][j]>=dp[i][j-1])i--;
+	else j--;
+}
+
+int main() {
+    cin>>s>>t;
+	qhd();
+	trace();
+	reverse(x.begin(),x.end());
+	cout<<x;
+	   return 0;   
+ }
+//https://oj.vnoi.info/problem/atcoder_dp_f
