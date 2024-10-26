@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e4;
+ll n, a[nmax];
+
+void SelectionSort(ll n, ll a[])
+{
+	int min_index;
+	for(int i=1;i<=n;i++)
+	{
+       min_index=i;
+		for(int j=i+1;j<=n;j++) 
+		   if(a[j]<a[min_index]) min_index=j;
+		swap(a[i],a[min_index]);   
+	}
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    //freopen("TEST.INP","r",stdin);
+    //freopen("TEST.OUT","w",stdout);
+    cin>>n;
+    for(int i=1;i<=n;++i)cin>>a[i];
+    
+    for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
+    cout<<"\n\n";
+    //BubbleSort(n,a);
+    SelectionSort(n,a);
+    //InsertionSort(n,a);
+    //MergeSort(1,n,a);
+    //QuickSort(a,1,n);
+    for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
+    return 0;
+}
