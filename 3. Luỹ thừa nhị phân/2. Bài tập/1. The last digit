@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int const nmax=1e6 + 10;
+long long a,b,c;
+
+long long  mu(long long a, long long  b)
+
+{  
+    if(b==0)return 1;
+    long long x=mu(a , b / 2);
+    if(b%2==0)return x*x%10;
+    else return x*x*a%10;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin>>c;
+    while(c--)
+    {
+    cin>>a>>b;
+    cout<<mu(a,b)<<endl;;    
+}
+    return 0;
+}
+//https://www.spoj.com/problems/LASTDIG/
