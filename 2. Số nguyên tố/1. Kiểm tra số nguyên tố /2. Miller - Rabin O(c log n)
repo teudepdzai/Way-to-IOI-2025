@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+long long t,z;
+
+ll nhanando(ll a, ll b, ll mod)
+{
+	if(b==0)return 0;
+	ll x=nhanando(a,b/2,mod)%mod;
+	if(b%2==0)return (2*x)%mod;
+	else return (2*x+a)%mod;
+}
+
+ll mu(ll a, ll k, ll mod)
+{
+    a%=mod;
+	ll ans=1;
+	while(k>0)
+	{
+		if(k%2==1)ans=nhanando(ans,a,mod);
+		a=nhanando(a,a,mod);
+		k/=2;
+	}
+	return ans;
+}
+bool test(ll a, ll n, ll k, ll m)
+{
+	ll mod= mu(a,m,n);
+	if(mod==1 || mod==n-1)return 1;
+	for(int i=1;i<k;i++)
+    {
+    	mod=(mod*mod)%n;
+	    if(mod==n-1)return 1;
+	}
+	return 0;
+	
+}
+
+bool MillerRabin(ll n)
+{
+	if(n==2 || n==3 || n==5 || n==7)return 1;
+	if(n<7)return 0;
+	
+	ll k=0,m=n-1;
+	while(m%2==0)
+	{
+		m/=2;
+		++k;
+	}
+	
+	static vector<int> primes={2,3,5,7,11,13,17,19,23,29,31,37,41};
+	for(int a: primes)
+	  {
+	  	if(a==n)return 1;
+	  	if(!test(a,n,k,m))return 0;
+	  }
+	  return 1;
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    	cin>>z;
+    	if(MillerRabin(z)==1)cout<<"YES\n";
+    	else cout<<"NO\n";
+    return 0;
+}
