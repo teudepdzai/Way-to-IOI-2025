@@ -3,15 +3,7 @@ using namespace std;
 
 typedef long long ll;
 const ll nmax=10e5+5;
-long long t,z;
-
-ll nhanando(ll a, ll b, ll mod)
-{
-	if(b==0)return 0;
-	ll x=nhanando(a,b/2,mod)%mod;
-	if(b%2==0)return (2*x)%mod;
-	else return (2*x+a)%mod;
-}
+long long n;
 
 ll mu(ll a, ll k, ll mod)
 {
@@ -19,8 +11,8 @@ ll mu(ll a, ll k, ll mod)
 	ll ans=1;
 	while(k>0)
 	{
-		if(k%2==1)ans=nhanando(ans,a,mod);
-		a=nhanando(a,a,mod);
+		if(k%2==1)ans=(ans*a)%mod;
+		a=(a*a)%mod;
 		k/=2;
 	}
 	return ans;
@@ -41,7 +33,7 @@ bool test(ll a, ll n, ll k, ll m)
 bool MillerRabin(ll n)
 {
 	if(n==2 || n==3 || n==5 || n==7)return 1;
-	if(n<7)return 0;
+	if(n<11)return 0;
 	
 	ll k=0,m=n-1;
 	while(m%2==0)
@@ -63,8 +55,10 @@ int main() {
     cin.tie(NULL);
 //    freopen("TEST.INP","r",stdin);
 //    freopen("TEST.OUT","w",stdout);
-    	cin>>z;
-    	if(MillerRabin(z)==1)cout<<"YES\n";
+    
+    	cin>>n;
+    	if(MillerRabin(n)==1)cout<<"YES\n";
     	else cout<<"NO\n";
+	
     return 0;
 }
