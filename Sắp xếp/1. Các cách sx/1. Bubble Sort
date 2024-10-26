@@ -22,7 +22,7 @@ int main() {
     
     for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
     cout<<"\n\n";
-    //BubbleSort(n,a);
+    BubbleSort(n,a);
     //SelectionSort(n,a);
     //InsertionSort(n,a);
     //MergeSort(1,n,a);
