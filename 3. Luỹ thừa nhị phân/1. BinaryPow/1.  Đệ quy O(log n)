@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+long long a,n,mod;
+
+ll mu(ll a, ll k, ll mod)
+{
+    if(k==0)return 1;
+    if(k==1)return a%mod;
+	ll ans=mu(a,k/2,mod);
+	if(k%2==0)return ans*ans%mod;
+	else return ans*ans*a%mod;
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    cin>>a>>n>>mod;
+    cout<<mu(a,n,mod);
+	
+    return 0;
+}
