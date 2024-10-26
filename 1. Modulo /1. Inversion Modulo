@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+long long a,n,m;
+
+ll mu(ll a, ll k, ll mod)
+{
+    a%=mod;
+	ll ans=1;
+	while(k>0)
+	{
+		if(k%2==1)ans=(ans*a)%mod;
+		a=(a*a)%mod;
+		k/=2;
+	}
+	return ans;
+}
+
+ll Inversionmod(ll n, ll mod)
+{
+	return mu(n,mod-2,mod);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    cin>>a>>n>>m;
+    cout<<a*Inversionmod(n,m)%m;
+	
+    return 0;
+}
