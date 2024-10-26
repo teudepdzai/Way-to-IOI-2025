@@ -1,6 +1,6 @@
-Author: Nguyễn Trung Hiếu aka teudepdzai
+Author: Nguyễn Trung Hiếu aka teudepdzai.
 Đây là kinh nghiệm, code của tôi tổng hợp lại trong quá trình học. Hãy tham khảo nó để trở thành 1 cp-er pro vip.
-More informatión:
+More informations:
 Facebook: Nguyễn Trung Hiếu 
 https://www.facebook.com/profile.php?id=100076513476049
 CF: teudepdzai
