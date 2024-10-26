@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e5+5;
+
+bool prime( ll n ){
+	if(n<=3)return n>1;
+	if(n%2==0 || n%3==0)return 0;
+	int tmp=sqrt(n)+1;
+	for(ll i=5;i<=tmp;i+=6)
+	  if(n%i==0 || n%(i+2)==0)return 0;
+	  return 1;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+//    freopen("TEST.INP","r",stdin);
+//    freopen("TEST.OUT","w",stdout);
+    cin>>n;
+    cout<<prime(n);
+    
+    return 0;
+}
