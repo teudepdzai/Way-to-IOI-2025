@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e4;
+ll n, a[nmax];
+
+void Merge(ll a[], ll l, ll m, ll r)
+{
+	ll left[nmax],right[nmax],b[nmax];
+	int n1=m-l+1,n2=r-m;
+	for(int i=1;i<=n1;i++)left[i]=a[l+i-1];
+	for(int i=1;i<=n2;i++)right[i]=a[i+m];
+	
+	int d=l,i=1,j=1;
+	while(i<=n1 && j<=n2)
+	{
+	     if(left[i]<=right[j])
+	    {
+	    	a[d]=left[i];
+	    	i++;
+		}
+		else
+		{
+		a[d]=right[j];
+		j++;
+	    }
+		d++;
+    }
+    
+    while(i<=n1)
+    {
+    	a[d]=left[i];
+    	i++;
+		d++;
+	}
+	while(j<=n2)
+    {
+    	a[d]=right[j];
+    	j++;
+		d++;
+	}
+}
+void MergeSort(ll l, ll r, ll a[])
+{
+	if(l>=r)return;
+	
+	int m=(l+r)/2;
+	MergeSort(l,m,a);
+	MergeSort(m+1,r,a);
+	Merge(a,l,m,r);
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    //freopen("TEST.INP","r",stdin);
+    //freopen("TEST.OUT","w",stdout);
+    cin>>n;
+    for(int i=1;i<=n;++i)cin>>a[i];
+    
+    for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
+    cout<<"\n\n";
+    //BubbleSort(n,a);
+    //SelectionSort(n,a);
+    //InsertionSort(n,a);
+    MergeSort(1,n,a);
+    //QuickSort(a,1,n);
+    for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
+    return 0;
+}
