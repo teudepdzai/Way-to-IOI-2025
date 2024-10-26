@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll nmax=10e4;
+ll n, a[nmax];
+
+
+int partition(ll a[], ll l, ll r)
+{
+	ll x=a[r],i=l-1;
+    for(int j=l;j<r;j++)
+    if(a[j]<=x)
+    {
+    	++i;
+    	swap(a[i],a[j]);
+	}
+	++i;
+	swap(a[i],a[r]);
+	return i;
+}
+
+void QuickSort(ll a[], ll l, ll r)
+{
+	if(l>=r)return;
+	int pivot=partition(a,l,r);
+	QuickSort(a,l,pivot-1);
+	QuickSort(a,pivot+1,r);
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    //freopen("TEST.INP","r",stdin);
+    //freopen("TEST.OUT","w",stdout);
+    cin>>n;
+    for(int i=1;i<=n;++i)cin>>a[i];
+    
+    for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
+    cout<<"\n\n";
+    //BubbleSort(n,a);
+    //SelectionSort(n,a);
+    //InsertionSort(n,a);
+    //MergeSort(1,n,a);
+    QuickSort(a,1,n);
+    for(int i=1;i<=n;i++)cout<<a[i]<<" ";    
+    return 0;
+}
